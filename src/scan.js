@@ -1,10 +1,6 @@
 module.exports = function (bot) {
   var module = {};
 
-  var elizabot = require("./elizabot.js");
-  var initial = elizabot.start();
-  console.log(initial);
-
   bot.on("chat", (username, message) => {
     const player = bot.players[username];
 
