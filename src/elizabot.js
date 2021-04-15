@@ -28,7 +28,8 @@ function ElizaBot(noRandomFlag) {
 		"Im here. Talk to me.",
 		"Talk to me",
 		"Top of the morning to you.",
-		"Thanks for waking me up"
+		"Thanks for waking me up",
+		"Hee Haw how are you?"
 	];
 
 	this.elizaKeywords = [
