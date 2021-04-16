@@ -8,11 +8,6 @@ module.exports = function (bot) {
       bot.chat("I can't see you.");
       return;
     }
-    if (message === "quit") {
-      elizabot.quit();
-    }
-
-    bot.chat(elizabot.reply(message));
   });
 
   return module;

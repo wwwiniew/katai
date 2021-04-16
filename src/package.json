@@ -11,6 +11,7 @@
   "dependencies": {
     "mineflayer": "^3.6.0",
     "mineflayer-pathfinder": "^1.6.1",
-    "mineflayer-pvp": "^1.0.2"
+    "mineflayer-pvp": "^1.0.2",
+    "mongodb": "^3.6.6"
   }
 }

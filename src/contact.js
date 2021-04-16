@@ -1,5 +1,8 @@
 class Contact {
   constructor(db) {
+    if (!db) {
+	    console.log("no db for contact");
+    }
     this.collection = db.collection("contacts");
   }
   async addContact(contact) {

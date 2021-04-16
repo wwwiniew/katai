@@ -1,17 +1,18 @@
 module.exports = function (bot) {
   var module = {};
-
   var elizabot = require("./elizabot.js");
-  var initial = elizabot.start();
-  var mongoUtil = require("mongoUtil");
-  var db = mongoUtil.getDb();
-  const Contact = require("Contact");
-
-  db.collection("users").find();
-  console.log(initial);
+  var mongoUtil = require("./mongoutils.js");
+  
+  const Contact = require("./contact.js");
 
   bot.on("chat", (username, message) => {
-    this.contacts = new Contact();
+	  if (username == bot.username) return
+
+	  if (!mongoUtil) {
+		  console.log('no mongoUtil in on chat!');
+	  }
+    var db = mongoUtil.getDb();	  
+    this.contacts = new Contact(db);
     const player = bot.players[username];
 
     if (!player) {
@@ -19,8 +20,9 @@ module.exports = function (bot) {
       return;
     }
     //check and see if we have a contact for this user
-    var contact = this.contact.findOne(username);
+    var contact = this.contacts.findContact(username);
     if (!contact) {
+	    console.log('cannot find contact in db');
       // otherwise lets create one
       var newContact = {
         username: username,
@@ -30,18 +32,25 @@ module.exports = function (bot) {
         master: false
       };
       contact = this.contacts.addContact(newContact);
+      bot.replay(elizabot.start());
+      return;
     } else {
-      //update last contact
-      this.contacts.sayhello(username);
+      //update last contacts
+      console.log("contact", contact);
+      this.contacts.sayHello(username);
+      console.log('found contact updating info');
     }
 
     if (contact.username === "") {
       bot.chat("Do you have a nickname?");
     }
+	  if (!elizabot) {
+		  console.log("no eliza?");
+	  }
     if (message === "quit") {
       elizabot.quit();
     }
-
+    
     bot.chat(elizabot.reply(message));
   });
 
