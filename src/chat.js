@@ -4,9 +4,15 @@ module.exports = function (bot) {
   var mongoUtil = require("./mongoutils.js");
   
   const Contact = require("./contact.js");
+  var lastMsg = Date.now()
+  const timer = ms => new Promise( res => setTimeout(res, ms));
 
   bot.on("chat", (username, message) => {
 	  if (username == bot.username) return
+	  while (Date.now() - lastMsg < 1000) {
+		  timer(100).then(console.log('waiting'));
+	  }
+	  lastMsg = Date.now();
 
 	  if (!mongoUtil) {
 		  console.log('no mongoUtil in on chat!');
@@ -20,7 +26,15 @@ module.exports = function (bot) {
       return;
     }
     //check and see if we have a contact for this user
-    var contact = this.contacts.findContact(username);
+    var contact = null;
+    var flag = false;
+    this.contacts.findContact(username).then(function(response) {
+	    contact=response;
+	    flag = true;
+    });
+    while (flag == false) {
+	   timer(10).then();
+    }
     if (!contact) {
 	    console.log('cannot find contact in db');
       // otherwise lets create one
@@ -31,8 +45,12 @@ module.exports = function (bot) {
         nickname: "",
         master: false
       };
-      contact = this.contacts.addContact(newContact);
-      bot.replay(elizabot.start());
+      this.contacts.addContact(newContact).then(function(response) {
+	      console.log('added contanct',response);
+	      contact = response;
+      });
+
+      bot.chat(elizabot.start());
       return;
     } else {
       //update last contacts
