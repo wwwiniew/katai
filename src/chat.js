@@ -9,7 +9,7 @@ module.exports = function (bot) {
   console.log('starting chat');
   bot.on("chat", (username, message) => {
     if (username == bot.username) return
-    if (Date.now() - lastMsg < 1000) {
+    if (Date.now() - lastMsg < 2000) {
       timer(1000).then((res) => {
         console.log("delayed");
         var sem = require('semaphore')(1);
