@@ -15,6 +15,7 @@ const { pathfinder, Movements, goals } = require("mineflayer-pathfinder");
 const pvp = require("mineflayer-pvp").plugin;
 const guard = require("./guard.js")(bot);
 const chat = require("./chat.js")(bot);
+const looker = require("./looker.js")(bot);
 //const scan = require("./scan.js")(bot);
 
 bot.loadPlugin(pathfinder);

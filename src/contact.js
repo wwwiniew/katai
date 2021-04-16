@@ -13,7 +13,13 @@ class Contact {
     return newContact;
   }
   async findContact(username) {
-    const newContact = await this.collection.findOne({ "username": username },{});
+    console.log('looking for contact',username);
+    const newContact = await this.collection.findOne({ username: username },{});
+    
+    return newContact;
+   }
+  findOne(username) {
+    const newContact = this.collection.findOne({ username: username });
     return newContact;
   }
   async sayHello(username) {

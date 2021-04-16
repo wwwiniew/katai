@@ -1,5 +1,5 @@
 const MongoClient = require("mongodb").MongoClient;
-const url = "mongodb://localhost:27017/katai_db";
+const url = "mongodb://192.168.1.102:27017/katai_db";
 
 var _db;
 
