@@ -60,7 +60,7 @@ module.exports = function (bot) {
         
         //update last contacts
         console.log("contact", contact._id);
-        if (Date.now() - contact.lastContact < 1000) {
+        if (Date.now() - contact.lastContact < 2000) {
           console.log('too chatty for message '+message);
           return; 
         }
